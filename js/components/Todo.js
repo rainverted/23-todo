@@ -8,6 +8,8 @@ class Todo {
         this.newBorderColorDOM = null;
         this.buttonSaveDOM = null;
 
+        this.messages = [];
+
         this.init();
     }
 
@@ -107,6 +109,13 @@ class Todo {
             const color = this.newBorderColorDOM.value;
 
             this.renderTask(message, color);
+
+            this.messages.push({
+                message: message,
+                color: color
+            })
+
+            localStorage.setItem('messages', JSON.stringify(this.messages))
         })
     }
 }
