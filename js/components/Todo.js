@@ -8,7 +8,7 @@ class Todo {
         this.newBorderColorDOM = null;
         this.buttonSaveDOM = null;
 
-        this.messages = [];
+        this.messages = JSON.parse(localStorage.getItem('messages')) || [];
 
         this.init();
     }
