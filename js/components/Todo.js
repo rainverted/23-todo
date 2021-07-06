@@ -29,6 +29,8 @@ class Todo {
 
         //issipiesiame pradini turini su render
         this.render();
+        //uzpildome sarasa su uzpildyta atmintimi
+        this.renderList();
         this.addEvents();
 
         //norint sugrazinti stiliu, kai HTML perkeliame i JS
@@ -71,6 +73,12 @@ class Todo {
         return `<div class="list"></div>`;
     }
 
+    renderList() {
+        for (const task of this.messages) {
+            this.renderTask(task.messageText, task.borderColor);
+        }
+    }
+
     renderTask(text, borderColor = '#ccc') {
         if (typeof text !== 'string' ||
             text === '') {
@@ -86,6 +94,8 @@ class Todo {
                         </div>`;
 
         this.listDOM.insertAdjacentHTML('afterbegin', HTML);
+
+
     }
 
     //render(), kuris konstruoja HTML, kuri istato i tinkama vieta
@@ -108,14 +118,20 @@ class Todo {
             const message = this.newMessageDOM.value;
             const color = this.newBorderColorDOM.value;
 
+            if (message === '') {
+                return false;
+            }
+
             this.renderTask(message, color);
 
             this.messages.push({
-                message: message,
-                color: color
+                messageText: message,
+                borderColor: color
             })
 
-            localStorage.setItem('messages', JSON.stringify(this.messages))
+            localStorage.setItem('messages', JSON.stringify(this.messages));
+
+
         })
     }
 }
